@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>글쓰기 - flipTURN Portfolio</title>
+    <meta name="description" content="게시글 작성 페이지">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/public/image/210544.png">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;700&family=Poppins:wght@400;600&family=Noto+Sans+KR:wght@400;500&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Quill Editor CSS -->
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    
+    <!-- Firebase Config -->
+    <script src="firebase-config.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html">flipTURN</a>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html#intro">Intro</a></li>
+                <li><a href="index.html#projects">Projects</a></li>
+                <li><a href="index.html#skills">Skills</a></li>
+                <li><a href="index.html#experience">Experience</a></li>
+                <li><a href="index.html#philosophy">flipTURN</a></li>
+                <li><a href="index.html#blog">게시판</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Write Page Section -->
+    <section class="section write-section">
+        <div class="container">
+            <div class="write-page-container">
+                <div class="write-header">
+                    <h1 class="write-title" id="writePageTitle">게시글 작성</h1>
+                    <p class="write-subtitle" id="writePageSubtitle">새로운 글을 작성해보세요</p>
+                </div>
+                
+                <form class="write-form" id="writeForm">
+                    <div class="form-group">
+                        <label for="writeTitle">제목 <span class="required">*</span></label>
+                        <input type="text" id="writeTitle" name="title" placeholder="제목을 입력하세요" required>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="writeCategory">카테고리 <span class="required">*</span></label>
+                            <select id="writeCategory" name="category" required>
+                                <option value="">카테고리를 선택하세요</option>
+                                <option value="일상">일상</option>
+                                <option value="디자인">디자인</option>
+                                <option value="개발">개발</option>
+                                <option value="갤러리">갤러리</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="writeAuthor">작성자 <span class="required">*</span></label>
+                            <input type="text" id="writeAuthor" name="author" placeholder="작성자명" value="flipTURN" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="writeContent">내용 <span class="required">*</span></label>
+                        <div id="writeContent" style="min-height: 400px;"></div>
+                        <input type="hidden" id="writeContentHtml" name="content" required>
+                        <div class="char-count">
+                            <span id="charCount">0</span> / 5000자
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="writeImage">이미지 첨부 (선택사항)</label>
+                        <div class="file-upload-area">
+                            <input type="file" id="writeImage" name="image" accept="image/*" multiple>
+                            <div class="file-upload-label">
+                                <span class="upload-icon">📎</span>
+                                <span class="upload-text">이미지를 선택하거나 여기에 끌어다 놓으세요</span>
+                            </div>
+                        </div>
+                        <div id="imagePreview" class="image-preview-container"></div>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary cancel-btn" onclick="history.back()">취소</button>
+                        <button type="button" class="btn btn-secondary draft-btn">임시저장</button>
+                        <button type="submit" class="btn btn-primary submit-btn" id="submitBtn">게시하기</button>
+                    </div>
+                    <input type="hidden" id="editPostId" name="editPostId">
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 flipTURN All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="script.js"></script>
+    <!-- Quill Editor JS -->
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+    <script>
+        // Quill 에디터 초기화
+        let quill = null;
+        
+        function initializeQuill() {
+            const quillContainer = document.getElementById('writeContent');
+            if (!quillContainer) return;
+            
+            quill = new Quill('#writeContent', {
+                theme: 'snow',
+                modules: {
+                    toolbar: [
+                        [{ 'header': [1, 2, 3, false] }],
+                        ['bold', 'italic', 'underline', 'strike'],
+                        [{ 'color': [] }, { 'background': [] }],
+                        [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                        [{ 'align': [] }],
+                        ['link', 'image'],
+                        ['clean']
+                    ]
+                },
+                placeholder: '내용을 입력하세요...'
+            });
+            
+            // 글자 수 카운터 업데이트
+            quill.on('text-change', function() {
+                updateCharCount();
+                updateHiddenInput();
+            });
+        }
+        
+        // 글자 수 카운터 업데이트
+        function updateCharCount() {
+            const charCount = document.getElementById('charCount');
+            if (!charCount || !quill) return;
+            
+            const text = quill.getText();
+            const length = text.length;
+            charCount.textContent = length;
+            
+            if (length > 5000) {
+                charCount.style.color = 'var(--deep-coral)';
+            } else {
+                charCount.style.color = 'var(--text-light)';
+            }
+        }
+        
+        // 숨겨진 input에 HTML 내용 업데이트
+        function updateHiddenInput() {
+            const hiddenInput = document.getElementById('writeContentHtml');
+            if (hiddenInput && quill) {
+                hiddenInput.value = quill.root.innerHTML;
+            }
+        }
+        
+        // 페이지 로드 시 Quill 초기화 및 수정 모드 체크
+        document.addEventListener('DOMContentLoaded', async function() {
+            initializeQuill();
+            
+            // URL 파라미터에서 edit ID 확인
+            const urlParams = new URLSearchParams(window.location.search);
+            const editPostId = urlParams.get('edit');
+            
+            if (editPostId) {
+                // Quill 초기화 후 게시글 로드
+                setTimeout(async () => {
+                    await loadPostForEdit(editPostId);
+                }, 200);
+            }
+        });
+        
+        // 현재 사용자 정보 (localStorage에서 가져오기)
+        function getCurrentUser() {
+            return localStorage.getItem('currentUser') || 'flipTURN';
+        }
+        
+        function setCurrentUser(username) {
+            localStorage.setItem('currentUser', username);
+        }
+        
+        // 작성자 권한 체크
+        function isAuthor(postAuthor) {
+            const currentUser = getCurrentUser();
+            return postAuthor === currentUser;
+        }
+        
+        // 수정 모드: 게시글 불러오기
+        async function loadPostForEdit(postId) {
+            try {
+                // Firebase 초기화
+                if (!window.initFirebase) {
+                    showNotification('Firebase가 초기화되지 않았습니다.', 'error');
+                    return;
+                }
+                
+                const { db: database } = await window.initFirebase();
+                if (!database) {
+                    showNotification('Firebase DB를 초기화할 수 없습니다.', 'error');
+                    return;
+                }
+                
+                // Firestore에서 게시글 가져오기
+                const { doc, getDoc } = await import('https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js');
+                const postRef = doc(database, 'posts', postId);
+                const postSnap = await getDoc(postRef);
+                
+                if (!postSnap.exists()) {
+                    showNotification('게시글을 찾을 수 없습니다.', 'error');
+                    setTimeout(() => {
+                        window.location.href = 'index.html#blog';
+                    }, 2000);
+                    return;
+                }
+                
+                const post = postSnap.data();
+                
+                // 작성자 권한 체크
+                if (!isAuthor(post.author)) {
+                    showNotification('작성자만 수정할 수 있습니다.', 'error');
+                    setTimeout(() => {
+                        window.location.href = 'index.html#blog';
+                    }, 2000);
+                    return;
+                }
+                
+                // 페이지 제목 변경
+                document.getElementById('writePageTitle').textContent = '게시글 수정';
+                document.getElementById('writePageSubtitle').textContent = '게시글을 수정하세요';
+                document.getElementById('submitBtn').textContent = '수정하기';
+                document.getElementById('editPostId').value = postId;
+                
+                // 폼에 데이터 채우기
+                document.getElementById('writeTitle').value = post.title || '';
+                document.getElementById('writeCategory').value = post.category || '';
+                document.getElementById('writeAuthor').value = post.author || 'flipTURN';
+                
+                // Quill 에디터에 내용 설정
+                if (quill && post.content) {
+                    quill.root.innerHTML = post.content;
+                    updateCharCount();
+                    updateHiddenInput();
+                }
+                
+                // 기존 이미지 표시
+                const imagePreview = document.getElementById('imagePreview');
+                if (imagePreview && post.imageUrls && Array.isArray(post.imageUrls) && post.imageUrls.length > 0) {
+                    imagePreview.innerHTML = '';
+                    post.imageUrls.forEach(imageUrl => {
+                        const previewItem = document.createElement('div');
+                        previewItem.className = 'preview-item';
+                        previewItem.innerHTML = `
+                            <img src="${imageUrl}" alt="기존 이미지">
+                            <button type="button" class="remove-image-btn" onclick="this.parentElement.remove()">×</button>
+                        `;
+                        imagePreview.appendChild(previewItem);
+                    });
+                }
+                
+            } catch (error) {
+                console.error('게시글 로드 오류:', error);
+                showNotification('게시글을 불러오는 중 오류가 발생했습니다.', 'error');
+            }
+        }
+        
+        // 이미지 미리보기
+        const writeImage = document.getElementById('writeImage');
+        const imagePreview = document.getElementById('imagePreview');
+        
+        if (writeImage && imagePreview) {
+            writeImage.addEventListener('change', function(e) {
+                imagePreview.innerHTML = '';
+                const files = e.target.files;
+                
+                if (files.length > 0) {
+                    Array.from(files).forEach(file => {
+                        if (file.type.startsWith('image/')) {
+                            const reader = new FileReader();
+                            reader.onload = function(e) {
+                                const previewItem = document.createElement('div');
+                                previewItem.className = 'preview-item';
+                                previewItem.innerHTML = `
+                                    <img src="${e.target.result}" alt="미리보기">
+                                    <button type="button" class="remove-image-btn" onclick="this.parentElement.remove()">×</button>
+                                `;
+                                imagePreview.appendChild(previewItem);
+                            };
+                            reader.readAsDataURL(file);
+                        }
+                    });
+                }
+            });
+        }
+        
+        // Firebase를 사용한 게시글 저장
+        const writeForm = document.getElementById('writeForm');
+        let firebaseDb = null;
+        let firebaseStorage = null;
+        
+        // Firebase 초기화
+        async function initializeFirebase() {
+            try {
+                const { db: database, storage: storageInstance } = await window.initFirebase();
+                firebaseDb = database;
+                firebaseStorage = storageInstance;
+                return true;
+            } catch (error) {
+                console.error('Firebase 초기화 실패:', error);
+                return false;
+            }
+        }
+        
+        // 게시글 저장
+        async function savePost(formData) {
+            if (!firebaseDb) {
+                const initialized = await initializeFirebase();
+                if (!initialized) {
+                    showNotification('Firebase를 초기화할 수 없습니다. 설정을 확인해주세요.', 'error');
+                    return;
+                }
+            }
+            
+            try {
+                const { collection, addDoc, doc, updateDoc, serverTimestamp } = await import('https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js');
+                const { ref, uploadBytes, getDownloadURL } = await import('https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js');
+                
+                const title = formData.get('title');
+                const editPostId = document.getElementById('editPostId').value;
+                const isEditMode = !!editPostId;
+                
+                // Quill 에디터에서 HTML 내용 가져오기
+                let content = '';
+                if (quill) {
+                    content = quill.root.innerHTML;
+                    // 빈 내용 체크 (Quill이 빈 내용일 때 <p><br></p>를 반환할 수 있음)
+                    const text = quill.getText().trim();
+                    if (!text || text.length === 0) {
+                        throw new Error('내용을 입력해주세요.');
+                    }
+                } else {
+                    content = formData.get('content') || '';
+                    if (!content.trim()) {
+                        throw new Error('내용을 입력해주세요.');
+                    }
+                }
+                
+                const category = formData.get('category');
+                let author = formData.get('author');
+                const imageFiles = formData.getAll('image');
+                
+                // 필수 필드 검증
+                if (!title || !title.trim()) {
+                    throw new Error('제목을 입력해주세요.');
+                }
+                if (!category) {
+                    throw new Error('카테고리를 선택해주세요.');
+                }
+                if (!author || !author.trim()) {
+                    throw new Error('작성자를 입력해주세요.');
+                }
+                
+                // 수정 모드일 경우 작성자 권한 체크
+                if (isEditMode) {
+                    const { doc, getDoc } = await import('https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js');
+                    const postRef = doc(firebaseDb, 'posts', editPostId);
+                    const postSnap = await getDoc(postRef);
+                    
+                    if (postSnap.exists()) {
+                        const originalPost = postSnap.data();
+                        if (!isAuthor(originalPost.author)) {
+                            throw new Error('작성자만 수정할 수 있습니다.');
+                        }
+                        // 작성자는 변경 불가
+                        author = originalPost.author;
+                    }
+                } else {
+                    // 새 게시글 작성 시 현재 사용자 정보 저장
+                    setCurrentUser(author);
+                    // 메인 페이지의 사용자 표시도 업데이트 (opener가 있으면)
+                    if (window.opener) {
+                        try {
+                            window.opener.updateCurrentUserDisplay();
+                        } catch (e) {
+                            // Cross-origin 오류 무시
+                        }
+                    }
+                }
+                
+                // 기존 이미지 URL 가져오기 (수정 모드)
+                let imageUrls = [];
+                if (isEditMode) {
+                    const imagePreview = document.getElementById('imagePreview');
+                    if (imagePreview) {
+                        const existingImages = imagePreview.querySelectorAll('img');
+                        existingImages.forEach(img => {
+                            if (img.src && !img.src.startsWith('data:')) {
+                                imageUrls.push(img.src);
+                            }
+                        });
+                    }
+                }
+                
+                // 새 이미지 업로드
+                for (const file of imageFiles) {
+                    if (file.size > 0) {
+                        const imageRef = ref(firebaseStorage, `posts/${Date.now()}_${file.name}`);
+                        await uploadBytes(imageRef, file);
+                        const url = await getDownloadURL(imageRef);
+                        imageUrls.push(url);
+                    }
+                }
+                
+                if (isEditMode) {
+                    // 수정 모드: 기존 게시글 업데이트
+                    const postRef = doc(firebaseDb, 'posts', editPostId);
+                    await updateDoc(postRef, {
+                        title,
+                        content,
+                        category,
+                        author,
+                        imageUrls,
+                        updatedAt: serverTimestamp()
+                    });
+                    
+                    showNotification('게시글이 성공적으로 수정되었습니다!', 'success');
+                } else {
+                    // 새 게시글 작성
+                    await addDoc(collection(firebaseDb, 'posts'), {
+                        title,
+                        content,
+                        category,
+                        author,
+                        imageUrls,
+                        views: 0,
+                        createdAt: serverTimestamp(),
+                        updatedAt: serverTimestamp()
+                    });
+                    
+                    showNotification('게시글이 성공적으로 작성되었습니다!', 'success');
+                }
+                
+                // 게시판으로 이동
+                setTimeout(() => {
+                    window.location.href = 'index.html#blog';
+                }, 1500);
+                
+            } catch (error) {
+                console.error('게시글 저장 오류:', error);
+                console.error('에러 상세:', {
+                    message: error.message,
+                    stack: error.stack,
+                    title: title,
+                    contentLength: content ? content.length : 0,
+                    category: category,
+                    author: author
+                });
+                showNotification('게시글 저장 중 오류가 발생했습니다: ' + error.message, 'error');
+            }
+        }
+        
+        // 알림 표시 함수
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 20px;
+                background: ${type === 'success' ? '#A8E6CF' : type === 'error' ? '#FF8A8A' : '#AEDFF7'};
+                color: white;
+                padding: 15px 25px;
+                border-radius: 10px;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+                z-index: 10000;
+                font-weight: 500;
+                animation: slideIn 0.3s ease;
+            `;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+        
+        // 폼 제출 처리
+        if (writeForm) {
+            writeForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                // Quill 에디터 내용 확인
+                if (!quill) {
+                    showNotification('에디터가 초기화되지 않았습니다. 페이지를 새로고침해주세요.', 'error');
+                    return;
+                }
+                
+                const text = quill.getText().trim();
+                if (!text || text.length === 0) {
+                    showNotification('내용을 입력해주세요.', 'error');
+                    return;
+                }
+                
+                // 숨겨진 input에 최신 내용 업데이트
+                updateHiddenInput();
+                
+                const submitBtn = this.querySelector('.submit-btn');
+                const originalText = submitBtn.textContent;
+                submitBtn.textContent = '저장 중...';
+                submitBtn.disabled = true;
+                
+                const formData = new FormData(this);
+                await savePost(formData);
+                
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            });
+        }
+        
+        // 임시저장 버튼 (로컬 스토리지에 저장)
+        const draftBtn = document.querySelector('.draft-btn');
+        if (draftBtn) {
+            draftBtn.addEventListener('click', function() {
+                const formData = {
+                    title: document.getElementById('writeTitle').value,
+                    content: quill ? quill.root.innerHTML : '',
+                    category: document.getElementById('writeCategory').value,
+                    author: document.getElementById('writeAuthor').value
+                };
+                localStorage.setItem('draftPost', JSON.stringify(formData));
+                showNotification('임시저장되었습니다.', 'info');
+            });
+        }
+        
+        // 페이지 로드 시 임시저장된 내용 불러오기
+        window.addEventListener('DOMContentLoaded', function() {
+            // Quill 초기화 후 임시저장 내용 불러오기
+            setTimeout(() => {
+                const draft = localStorage.getItem('draftPost');
+                if (draft && quill) {
+                    const formData = JSON.parse(draft);
+                    if (confirm('임시저장된 글이 있습니다. 불러오시겠습니까?')) {
+                        document.getElementById('writeTitle').value = formData.title || '';
+                        if (formData.content) {
+                            quill.root.innerHTML = formData.content;
+                            updateCharCount();
+                        }
+                        document.getElementById('writeCategory').value = formData.category || '';
+                        document.getElementById('writeAuthor').value = formData.author || '';
+                    }
+                }
+            }, 100);
+        });
+    </script>
+</body>
+</html>
+

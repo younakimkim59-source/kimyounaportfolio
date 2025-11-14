@@ -1,0 +1,44 @@
+# Firebase
+.firebase/
+firebase-debug.log
+firebase-debug.*.log
+
+# Node modules
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Environment variables
+.env
+.env.local
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# 빈 폴더
+kimyounapro10/
+portfolio1026/
+
+# Build files
+dist/
+build/
+*.map
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
+

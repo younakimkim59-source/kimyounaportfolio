@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>flipTURN Portfolio</title>
+    <meta name="description" content="flipTURN의 개인 포트폴리오 웹사이트 - 따뜻함과 감각을 바탕으로 한 창작 공간">
+    <meta name="keywords" content="포트폴리오, 웹개발, 디자인, flipTURN">
+    <meta name="author" content="flipTURN">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="flipTURN Portfolio">
+    <meta property="og:description" content="따뜻함과 감각을 바탕으로 한 개인 포트폴리오">
+    <meta property="og:type" content="website">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/image/210544.png">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;700&family=Poppins:wght@400;600&family=Noto+Sans+KR:wght@400;500&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Firebase Config -->
+    <script src="firebase-config.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="#home">flipTURN</a>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#intro">Intro</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#philosophy">flipTURN</a></li>
+                <li><a href="#blog">Board</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Intro Section -->
+        <section id="intro" class="section intro-section">
+            <div class="container">
+                <div class="intro-content">
+                    <div class="intro-text">
+                        <h1 class="intro-title">
+                            안녕하세요! <br>
+                            <span class="highlight">flipTURN</span>입니다
+                        </h1>
+                        <p class="intro-description">
+                            유연한 전환(Flip)에서 단단한 결과(TURN)로<br>
+                            따뜻함과 감각을 바탕으로 한 창작을 추구합니다
+                        </p>
+                        <div class="intro-buttons">
+                            <a href="#projects" class="btn btn-primary">작업물 보기</a>
+                            <a href="#contact" class="btn btn-secondary">연락하기</a>
+                        </div>
+                    </div>
+                    <div class="intro-illustration">
+                        <div class="character-illustration">
+                            <!-- 일러스트 영역 -->
+                            <div class="character"></div>
+                            <div class="floating-elements">
+                                <div class="element element-1"></div>
+                                <div class="element element-2"></div>
+                                <div class="element element-3"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="section projects-section">
+            <div class="container">
+                <h2 class="section-title">Projects</h2>
+                <p class="section-subtitle">직접 만든 웹, 디자인, 콘텐츠, 교육자료들</p>
+                
+                <div class="projects-grid">
+                    <!-- 1. 설문조사 -->
+                    <div class="project-card">
+                        <div class="project-image">
+                            <div class="project-placeholder">
+                                <div class="project-icon">📊</div>
+                            </div>
+                        </div>
+                        <div class="project-content">
+                            <h3 class="project-title">설문조사</h3>
+                            <p class="project-description">설문조사 관리 및 응답 수집 플랫폼</p>
+                            <div class="project-tags">
+                                <span class="tag">HTML</span>
+                                <span class="tag">CSS</span>
+                                <span class="tag">JavaScript</span>
+                                <span class="tag">Firebase</span>
+                            </div>
+                            <a href="https://reserch-815b9.web.app" target="_blank" class="project-link">자세히 보기</a>
+                        </div>
+                    </div>
+
+                    <!-- 2. 마음일기 -->
+                    <div class="project-card">
+                        <div class="project-image">
+                            <div class="project-placeholder">
+                                <div class="project-icon">📖</div>
+                            </div>
+                        </div>
+                        <div class="project-content">
+                            <h3 class="project-title">마음일기</h3>
+                            <p class="project-description">부모-자녀 간 마음 소통 일기장</p>
+                            <div class="project-tags">
+                                <span class="tag">Flutter</span>
+                                <span class="tag">Dart</span>
+                                <span class="tag">Firebase</span>
+                            </div>
+                            <a href="https://mamama-f2a52.web.app" target="_blank" class="project-link">자세히 보기</a>
+                        </div>
+                    </div>
+
+                    <!-- 3. Flowtime -->
+                    <div class="project-card">
+                        <div class="project-image">
+                            <div class="project-placeholder">
+                                <div class="project-icon">🌟</div>
+                            </div>
+                        </div>
+                        <div class="project-content">
+                            <h3 class="project-title">Flowtime</h3>
+                            <p class="project-description">Make your ordinary day flow beautifully. 당신의 순간들이 빛나는 감성 공간</p>
+                            <div class="project-tags">
+                                <span class="tag">HTML</span>
+                                <span class="tag">CSS</span>
+                                <span class="tag">JavaScript</span>
+                            </div>
+                            <a href="https://skill-24ee2.web.app" target="_blank" class="project-link">자세히 보기</a>
+                        </div>
+                    </div>
+
+                    <!-- 4. keepon -->
+                    <div class="project-card">
+                        <div class="project-image">
+                            <div class="project-placeholder">
+                                <div class="project-icon">🎁</div>
+                            </div>
+                        </div>
+                        <div class="project-content">
+                            <h3 class="project-title">keepon</h3>
+                            <p class="project-description">가족 공동 모바일 쿠폰 지갑</p>
+                            <div class="project-tags">
+                                <span class="tag">HTML</span>
+                                <span class="tag">CSS</span>
+                                <span class="tag">JavaScript</span>
+                                <span class="tag">Firebase</span>
+                            </div>
+                            <a href="https://newnew-a0dec.web.app" target="_blank" class="project-link">자세히 보기</a>
+                        </div>
+                    </div>
+
+                    <!-- 5. QR코드기반 플랫폼시스템 -->
+                    <div class="project-card">
+                        <div class="project-image">
+                            <div class="project-placeholder">
+                                <div class="project-icon">📱</div>
+                            </div>
+                        </div>
+                        <div class="project-content">
+                            <h3 class="project-title">QR코드 기반 플랫폼시스템</h3>
+                            <p class="project-description">병원 회원 관리 및 진료 시스템</p>
+                            <div class="project-tags">
+                                <span class="tag">HTML</span>
+                                <span class="tag">CSS</span>
+                                <span class="tag">JavaScript</span>
+                                <span class="tag">QR코드</span>
+                            </div>
+                            <a href="https://qrappprogram.web.app" target="_blank" class="project-link">자세히 보기</a>
+                        </div>
+                    </div>
+
+                    <!-- 6. 진행중 -->
+                    <div class="project-card">
+                        <div class="project-image">
+                            <div class="project-placeholder">
+                                <div class="project-icon">🚀</div>
+                            </div>
+                        </div>
+                        <div class="project-content">
+                            <h3 class="project-title">진행중</h3>
+                            <p class="project-description">더 많은 프로젝트로 성장하는 중</p>
+                            <div class="project-tags">
+                                <span class="tag">예정</span>
+                            </div>
+                            <a href="#" class="project-link">기대해 주세요</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="section skills-section">
+            <div class="container">
+                <h2 class="section-title">Skills & Tools</h2>
+                <p class="section-subtitle">다룰 수 있는 기술과 도구들</p>
+                
+                <div class="skills-grid">
+                    <div class="skill-category">
+                        <h3 class="category-title">Frontend</h3>
+                        <div class="skills-list">
+                            <div class="skill-item">
+                                <div class="skill-icon">🌐</div>
+                                <span class="skill-name">HTML</span>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-icon">🎨</div>
+                                <span class="skill-name">CSS</span>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-icon">⚡</div>
+                                <span class="skill-name">JavaScript</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="skill-category">
+                        <h3 class="category-title">Design</h3>
+                        <div class="skills-list">
+                            <div class="skill-item">
+                                <div class="skill-icon">🎨</div>
+                                <span class="skill-name">Figma</span>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-icon">🖼️</div>
+                                <span class="skill-name">Photoshop</span>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-icon">✏️</div>
+                                <span class="skill-name">Illustrator</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="skill-category">
+                        <h3 class="category-title">Tools</h3>
+                        <div class="skills-list">
+                            <div class="skill-item">
+                                <div class="skill-icon">📝</div>
+                                <span class="skill-name">VS Code</span>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-icon">🔥</div>
+                                <span class="skill-name">Firebase</span>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-icon">📱</div>
+                                <span class="skill-name">Git</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience Section -->
+        <section id="experience" class="section experience-section">
+            <div class="container">
+                <h2 class="section-title">Experience</h2>
+                <p class="section-subtitle">연도별 경력 타임라인</p>
+                
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-year">시작</div>
+                        <div class="timeline-content">
+                            <h3 class="timeline-title">웹개발 시작</h3>
+                            <p class="timeline-description">HTML, CSS, JavaScript 기초를 배우며 첫 프로젝트 Flowtime 완성</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-year">현재</div>
+                        <div class="timeline-content">
+                            <h3 class="timeline-title">성장하는 개발자</h3>
+                            <p class="timeline-description">매일 배우고 도전하며 더 나은 웹사이트를 만들어가는 중</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Philosophy Section -->
+        <section id="philosophy" class="section philosophy-section">
+            <div class="container">
+                <div class="philosophy-content">
+                    <div class="philosophy-text">
+                        <h2 class="philosophy-title">
+                            <span class="flip">flip</span><span class="turn">TURN</span>
+                        </h2>
+                        <p class="philosophy-description">
+                            유연한 전환(Flip)에서 단단한 결과(TURN)로<br>
+                            변화를 두려워하지 않고, 그 변화를 통해 더 나은 결과를 만들어<span style="white-space: nowrap;">갑니다</span>
+                        </p>
+                    </div>
+                    <div class="philosophy-illustration">
+                        <div class="philosophy-visual">
+                            <div class="flip-element">flip</div>
+                            <div class="arrow">→</div>
+                            <div class="turn-element">TURN</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Board Section -->
+        <section id="blog" class="section board-section">
+            <div class="container">
+                <h2 class="section-title">게시판</h2>
+                <p class="section-subtitle">자유롭게 소통하는 공간</p>
+                
+                <!-- 게시판 상단 컨트롤 -->
+                <div class="board-controls">
+                    <div class="board-search">
+                        <input type="text" placeholder="검색어를 입력하세요" class="search-input">
+                        <button class="search-btn">검색</button>
+                    </div>
+                    <div class="user-info">
+                        <span id="currentUserDisplay" style="display: none; margin-right: 15px; color: var(--text-light); font-size: 14px;"></span>
+                        <a href="write.html" class="btn btn-primary write-btn">글쓰기</a>
+                    </div>
+                </div>
+                
+                <!-- 게시판 목록 -->
+                <div class="board-container">
+                    <table class="board-table">
+                        <thead>
+                            <tr>
+                                <th class="col-no">번호</th>
+                                <th class="col-category">카테고리</th>
+                                <th class="col-title">제목</th>
+                                <th class="col-author">작성자</th>
+                                <th class="col-date">작성일</th>
+                                <th class="col-views">조회</th>
+                            </tr>
+                        </thead>
+                        <tbody id="boardTableBody">
+                            <tr>
+                                <td colspan="6" style="text-align: center; padding: 40px;">
+                                    <div class="loading-message">게시글을 불러오는 중...</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- 페이지네이션 -->
+                <div class="pagination">
+                    <button class="page-btn prev-btn" disabled>이전</button>
+                    <div class="page-numbers">
+                        <!-- 페이지 번호는 JavaScript로 동적 생성 -->
+                    </div>
+                    <button class="page-btn next-btn">다음</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 게시글 상세보기 모달 -->
+        <div id="postModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 id="modalTitle" class="modal-title"></h2>
+                    <button class="modal-close" id="modalClose">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-meta">
+                        <span id="modalCategory" class="modal-category"></span>
+                        <span id="modalAuthor" class="modal-author"></span>
+                        <span id="modalDate" class="modal-date"></span>
+                        <span id="modalViews" class="modal-views"></span>
+                    </div>
+                    <div id="modalContent" class="modal-content-text"></div>
+                    <div id="modalImages" class="modal-images"></div>
+                    
+                    <!-- 댓글 섹션 -->
+                    <div class="comments-section">
+                        <h3 class="comments-title">댓글 <span class="comments-count">0</span></h3>
+                        
+                        <!-- 댓글 목록 -->
+                        <div class="comments-list">
+                            <div style="text-align: center; padding: 20px; color: var(--text-light);">댓글을 불러오는 중...</div>
+                        </div>
+                        
+                        <!-- 댓글 작성 폼 -->
+                        <div class="comment-form">
+                            <div class="comment-form-header">
+                                <input type="text" id="commentAuthor" class="comment-author-input" placeholder="이름을 입력하세요" maxlength="20">
+                            </div>
+                            <textarea id="commentContent" class="comment-content-input" placeholder="댓글을 입력하세요..." rows="3" maxlength="500"></textarea>
+                            <div class="comment-form-footer">
+                                <span class="comment-char-count"><span id="commentCharCount">0</span>/500</span>
+                                <button class="btn btn-primary comment-submit-btn">댓글 작성</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="modal-actions">
+                        <button class="btn btn-danger" id="modalDeleteBtn" style="display: none;">삭제</button>
+                        <button class="btn btn-primary" id="modalEditBtn" style="display: none;">수정</button>
+                    </div>
+                    <button class="btn btn-secondary" id="modalCloseBtn">닫기</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Section -->
+        <section id="contact" class="section contact-section">
+            <div class="container">
+                <h2 class="section-title">Contact</h2>
+                
+                <div class="contact-intro">
+                    <p class="contact-intro-text">
+                        따뜻한 감성과 일상의 편리함을 잇는<br>
+                        <strong>Web/App Creator, flipTURN</strong>입니다.<br>
+                        감성 UI/UX · 가족 중심 서비스 · 브랜드 디자인에 집중합니다.
+                    </p>
+                    <p class="contact-message">
+                        새로운 전환점은 대화에서 시작됩니다. 편하게 연락주세요.
+                    </p>
+                </div>
+                
+                <div class="contact-content">
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <div class="contact-icon">📧</div>
+                            <div class="contact-details">
+                                <h3>이메일</h3>
+                                <p><a href="mailto:danny229@naver.com">danny229@naver.com</a></p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">📱</div>
+                            <div class="contact-details">
+                                <h3>SNS</h3>
+                                <p><a href="https://www.instagram.com/younakimkim" target="_blank">Instagram @younakimkim</a></p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">📝</div>
+                            <div class="contact-details">
+                                <h3>블로그</h3>
+                                <p><a href="https://blog.naver.com/danny229" target="_blank">https://blog.naver.com/danny229</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="resume-download">
+                    <a href="이력서2025.pdf" download class="btn btn-primary">📥 PDF 이력서 다운로드</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 flipTURN All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>
